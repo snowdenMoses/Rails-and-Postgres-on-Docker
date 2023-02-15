@@ -1,0 +1,30 @@
+version: "3"
+services:
+    db:
+        image: "postgres:15.2-alpine"
+        environment:
+          POSTGRES_PASSWORD: example
+          POSTGRES_USERNAME: snowdenmoses
+          POSTGRES_DB: POSTGRES_DB
+        restart: always
+        ports:
+          - "5432:5432"
+  # the volume helps in setting password and username. 
+  # Change volume name in other to change postgres username and password
+        volumes:
+          - ./pg-data:/var/lib/postgresql/data 
+    backend:
+        build:
+          context: ./server/findthatplug
+        ports:
+          - "3000:3000"
+        volumes:
+          - ./server/findthatplug:/app
+        command: bundle exec rails s -p 3000 -b '0.0.0.0'
+        depends_on:
+          - db
+
+#sets a db volume if the volume doesn't yet exist 
+volumes:
+    pd-data:
+    

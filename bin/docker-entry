@@ -1,0 +1,8 @@
+#!/bin/sh
+# a shell file that gets executed before ruby and rails other  docker service gets executed
+if [ "${*}" == "./bin/rails server" ]; then
+  bin/rails db:create
+  bin/rails db:prepare
+fi
+
+exec "${@}"
