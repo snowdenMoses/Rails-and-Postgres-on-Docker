@@ -1,0 +1,6 @@
+1.      RUN rails db:create
+To run rails db:create from a docker compose file use 
+                
+        docker-compose run web rake db:create
+or alternatively, you could launch the containers normaly with docker-compose, 
+and then use the    docker exec     command to execute     rake db:create    in the web container.
